@@ -1,0 +1,28 @@
+name: Parliament sync fixture dry run
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fixture-import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Validate importer
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Import synthetic fixture into SQL
+        run: |
+          python tools/parliament_import.py inspect fixtures/parliament_sample.xml
+          python tools/parliament_import.py import fixtures/parliament_sample.xml --mapping config/mapping.sample.json --kind demo --output imports/sample.sql
+      - name: Verify synthetic label, never official
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          sql=Path('imports/sample.sql').read_text(encoding='utf-8')
+          assert "'demo:" in sql
+          assert "'[DEMÓ]" in sql
+          print('SYNTHETIC fixture imported as demo only; no remote write performed.')
+          PY

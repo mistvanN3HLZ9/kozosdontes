@@ -1,0 +1,10 @@
+{
+  "fixture_only": true,
+  "item_tag": "iromany",
+  "id_attr": "izon",
+  "title_child": "cim",
+  "reference_child": "iromanyszam",
+  "status_child": "allapot",
+  "submitted_child": "benyujtas",
+  "url_child": "url"
+}

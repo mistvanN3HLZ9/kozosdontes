@@ -1,0 +1,10 @@
+{
+  "_WARNING": "Ellenőrizetlen MINTA! A tényleges parlamenti XML-válasz alapján töltsd ki/igazítsd a mezőket. A helyes címkéket nem garantáljuk.",
+  "item_tag": "iromany",
+  "id_attr": "izon",
+  "title_child": "cim",
+  "reference_child": "iromanyszam",
+  "status_child": "allapot",
+  "submitted_child": "benyujtas",
+  "url_child": "url"
+}

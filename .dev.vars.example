@@ -1,0 +1,2 @@
+# Stage 1 nem igényel Worker secretet.
+# A későbbi adminszinkron titkai ide kerülhetnek, soha nem a VITE_* környezeti változók közé.

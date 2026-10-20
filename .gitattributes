@@ -1,0 +1,10 @@
+# Egységes sorvégek Windows / GitHub Actions között.
+* text=auto
+*.py text eol=lf
+*.sql text eol=lf
+*.json text eol=lf
+*.jsonc text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
