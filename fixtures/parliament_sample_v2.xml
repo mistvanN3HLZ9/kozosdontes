@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- CSAK KITALÁLT TESZTVÁLTOZAT, NEM HIVATALOS PARLAMENTI API VÁLASZ! -->
+<iromanyok>
+  <iromany izon="SYNTH-101">
+    <iromanyszam>DEMO/T-101</iromanyszam>
+    <cim>Fiktív javaslat a közösségi kertekről – módosított szöveg</cim>
+    <allapot>teszt-módosítva</allapot><benyujtas>2026-10-10</benyujtas>
+  </iromany>
+  <iromany izon="SYNTH-102">
+    <iromanyszam>DEMO/T-102</iromanyszam>
+    <cim>Fiktív javaslat a könyvtárak nyitvatartásáról</cim>
+    <allapot>teszt</allapot><benyujtas>2026-10-12</benyujtas>
+  </iromany>
+  <iromany izon="SYNTH-103">
+    <iromanyszam>DEMO/T-103</iromanyszam>
+    <cim>Fiktív javaslat a kerékpártárolókról</cim>
+    <allapot>teszt</allapot><benyujtas>2026-10-20</benyujtas>
+  </iromany>
+</iromanyok>

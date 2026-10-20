@@ -1,0 +1,48 @@
+name: Parliament sync preview (synthetic, NO DEPLOY)
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'tools/parliament_import.py'
+      - 'tools/sync_preview.py'
+      - 'fixtures/parliament_sample*.xml'
+      - 'config/mapping.sample.json'
+      - 'migrations/0002_sync_audit.sql'
+      - 'tests/test_sync_preview.py'
+      - '.github/workflows/sync-preview.yml'
+permissions:
+  contents: read
+jobs:
+  synthetic-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Check tests
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Generate SQL and report, no remote writes
+        run: |
+          python tools/sync_preview.py \
+            --before fixtures/parliament_sample.xml \
+            --after fixtures/parliament_sample_v2.xml \
+            --mapping config/mapping.sample.json \
+            --kind demo \
+            --report imports/sync-report.json \
+            --sql imports/sync-pending.sql
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report=json.loads(Path('imports/sync-report.json').read_text(encoding='utf-8'))
+          assert report['counts'] == {'created': 1, 'changed': 1, 'unchanged': 1, 'missing_not_deleted': 0}
+          assert "'[DEMÓ]" in Path('imports/sync-pending.sql').read_text(encoding='utf-8')
+          print('Dry run succeeded; SQL is NOT automatically deployed.')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-sync-preview
+          path: |
+            imports/sync-report.json
+            imports/sync-pending.sql
+          retention-days: 7

@@ -1,0 +1,37 @@
+{
+  "created": [
+    {
+      "id": "SYNTH-103",
+      "title": "Fiktív javaslat a kerékpártárolókról",
+      "sha256": "a56d3c7d06f88ab89d6761fc844f221155b06954b47b6dded6f767654854d2c5"
+    }
+  ],
+  "changed": [
+    {
+      "id": "SYNTH-101",
+      "old_sha256": "69e61cfbcd17983902d3f78d72aa21c24a28e919b6d7b0a73cf97a5d439bb6ba",
+      "title": "Fiktív javaslat a közösségi kertekről – módosított szöveg",
+      "sha256": "e8cc9e3f564316ca2058f29492fe9f479c523bbbcc7f99c8af07aa9ef5ee48c2"
+    }
+  ],
+  "unchanged": [
+    {
+      "id": "SYNTH-102",
+      "title": "Fiktív javaslat a könyvtárak nyitvatartásáról",
+      "sha256": "6012439f4263b1146970d329804d5b8845b30513cb5ea165963f67407e0f6d53"
+    }
+  ],
+  "missing_from_new_feed_not_deleted": [],
+  "counts": {
+    "created": 1,
+    "changed": 1,
+    "unchanged": 1,
+    "missing_not_deleted": 0
+  },
+  "source_name": "manual-xml-preview",
+  "record_kind": "demo",
+  "before_file": "fixtures\\parliament_sample.xml",
+  "after_file": "fixtures\\parliament_sample_v2.xml",
+  "generated_at_utc": "2026-10-20T15:12:25.975451+00:00",
+  "warning": "Ez XML-pillanatképek összehasonlítása, nem az élő D1 adatbázis állapotvizsgálata. Nem végez törlést vagy távoli írást."
+}

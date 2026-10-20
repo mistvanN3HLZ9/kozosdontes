@@ -9,6 +9,7 @@ Csak a helyi demó-fixture-höz szállítunk előre jóváhagyott mappinget.
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import json
 import os
@@ -35,6 +36,22 @@ def load_xml(path: Path) -> ET.Element:
     if b'<!doctype' in lowered or b'<!entity' in lowered:
         raise ValueError('DOCTYPE/ENTITY tiltva (XML biztonság).')
     return ET.fromstring(data)
+
+
+def element_checksum(item: ET.Element) -> str:
+    """Stabil hash: a kizárólag XML-formázásból eredő szóközök nem számítanak.
+
+    Valódi szöveges tartalmat változatlanul hagy. A sémaérzékeny releváns
+    változások megítélése továbbra is külön ellenőrzést igényel.
+    """
+    normalized = copy.deepcopy(item)
+    for node in normalized.iter():
+        if node.text is not None and not node.text.strip():
+            node.text = None
+        if node.tail is not None and not node.tail.strip():
+            node.tail = None
+    canonical = ET.canonicalize(ET.tostring(normalized, encoding='unicode'))
+    return hashlib.sha256(canonical.encode('utf-8')).hexdigest()
 
 
 def find_items(root: ET.Element, tag: str) -> list[ET.Element]:
@@ -117,7 +134,7 @@ def render_sql(path: Path, mapping: dict, kind: str) -> tuple[str, int]:
         status = field(item, mapping, 'status') or 'unknown'
         submitted = field(item, mapping, 'submitted')
         url = safe_url(field(item, mapping, 'url'))
-        checksum = hashlib.sha256(ET.tostring(item, encoding='utf-8')).hexdigest()
+        checksum = element_checksum(item)
         display = title[:240]
         if kind == 'demo':
             display = f'[DEMÓ] {display}'
